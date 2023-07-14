@@ -1,23 +1,23 @@
 import Field from 'form_utility_package/dist/form_utility/controls/Field'
-import React from 'react'
+import React, { useContext } from 'react'
+import { storeContext } from './Layout'
 
-export default function OptionsBox({ checkValue, onChange, totalQuestions }) {
+export default function OptionsBox({ uniqueIdGenerate, checkValue, onChange, totalQuestions }) {
+    const storeContextAPI = useContext(storeContext)
 
     return (
         <>
             {
                 checkValue.map((value, index) => {
-                    let equalQuestion = Number(totalQuestions?.descriptive) + Number(totalQuestions?.programming) + Number(totalQuestions?.mcq)
+                    // if (Number(totalQuestions?.number_of_questions) == storeContextAPI.store.totalValues) {
 
-                    if (Number(totalQuestions?.number_of_questions) == equalQuestion) {
-
-                        return <span key={index}>
+                        return <span key={`${uniqueIdGenerate}.${value}`}>
                             <Field
                                 control="input"
                                 type="number"
-                                name={value}
+                                name={`${uniqueIdGenerate}.${value}`}
                                 onChange={onChange}
-                                disabled
+                                // disabled
                                 placeholder={value + " " + "how many questions ?."}
                                 className="form-control mb-2"
                                 outerClass="px-2"
@@ -25,18 +25,49 @@ export default function OptionsBox({ checkValue, onChange, totalQuestions }) {
                         </span>
                     }
 
-                    return <span key={index}>
-                        <Field
-                            control="input"
-                            type="number"
-                            name={value}
-                            onChange={onChange}
-                            placeholder={value + " " + "how many questions ?."}
-                            className="form-control mb-2"
-                            outerClass="px-2"
-                        />
-                    </span>
-                })
+                )
+
+
+
+                // if(value == 'mcq'){
+                // return <span key={index}>
+                //     <Field
+                //         control="input"
+                //         type="number"
+                //         name={`${uniqueIdGenerate}.${value}`}
+                //         onChange={onChange}
+                //         placeholder={value + " " + "how many questions ?."}
+                //         className="form-control mb-2"
+                //         outerClass="px-2"
+                //     />
+                // </span>
+                // }
+                // if(value == 'programming'){
+                //     return <span key={index}>
+                //     <Field
+                //         control="input"
+                //         type="number"
+                //         name={`${uniqueIdGenerate}.${value}`}
+                //         onChange={onChange}
+                //         placeholder={value + " " + "how many questions ?."}
+                //         className="form-control mb-2"
+                //         outerClass="px-2"
+                //     />
+                // </span>
+                // }
+                // if(value == 'descriptive'){
+                //     return <span key={index}>
+                //     <Field
+                //         control="input"
+                //         type="number"
+                //         name={`${uniqueIdGenerate}.${value}`}
+                //         onChange={onChange}
+                //         placeholder={value + " " + "how many questions ?."}
+                //         className="form-control mb-2"
+                //         outerClass="px-2"
+                //     />
+                // </span>
+                // }
             }
         </>
     )
